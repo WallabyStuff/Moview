@@ -24,7 +24,6 @@ target 'Moview' do
   pod 'SwiftyJSON'
 
   # Conventions
-  pod 'SwiftLint'
   pod 'R.swift'
 
   # Database

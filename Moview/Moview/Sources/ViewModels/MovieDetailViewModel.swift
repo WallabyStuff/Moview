@@ -46,11 +46,11 @@ final class MovieDetailViewModel: ViewModelType {
     let output = Output()
     
     input.viewDidLoad
-      .subscribe(with: self, onNext: { stringSelf, _ in
+      .subscribe(with: self, onNext: { strongSelf, _ in
         output.currentMovie.accept(movie)
         
         /// Update initial bookmark state
-        let isBookmarked = stringSelf.bookmarkManager.isBookmarked(id: movie.id)
+        let isBookmarked = strongSelf.bookmarkManager.isBookmarked(id: movie.id)
         output.bookmarkState.accept(isBookmarked)
       })
       .disposed(by: disposeBag)
