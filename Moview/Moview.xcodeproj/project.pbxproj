@@ -156,6 +156,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		8E7D71C52ACBC3D500D937DC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				8EAB6ED4298F60A000BAC987 /* BookmarkManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		8E936ACD298E72C9007F9043 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,13 +176,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		8E936ADA298EE9AE007F9043 /* Services */ = {
+		8E936ADA298EE9AE007F9043 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
 				8E936ADB298EE9BE007F9043 /* YTSApiService.swift */,
-				8EAB6ED4298F60A000BAC987 /* BookmarkManager.swift */,
 			);
-			path = Services;
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		8E936ADD298EEA21007F9043 /* Models */ = {
@@ -217,10 +224,11 @@
 			isa = PBXGroup;
 			children = (
 				8E7D71BF2ACBB92C00D937DC /* Application */,
-				8E936ADA298EE9AE007F9043 /* Services */,
+				8E7D71C52ACBC3D500D937DC /* Managers */,
+				8E936ADA298EE9AE007F9043 /* Networking */,
+				8EF65F6E298E2CCB00EEAB2A /* Views */,
 				8E936ADD298EEA21007F9043 /* Models */,
 				8E68BE56298F06A300844837 /* ViewModels */,
-				8EF65F6E298E2CCB00EEAB2A /* Views */,
 				8EF65F63298E128F00EEAB2A /* ViewControllers */,
 				8EF65F69298E223700EEAB2A /* Utils */,
 			);
@@ -375,7 +383,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
