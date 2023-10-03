@@ -11,7 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class SearchViewModel: ViewModelType {
+
+final class SearchViewModel: ViewModelType {
   
   // MARK: - Constants
   
@@ -44,7 +45,7 @@ class SearchViewModel: ViewModelType {
   private(set) var disposeBag = DisposeBag()
   private let ytsApiService = YTSApiService()
   static var fakeMovieItems: [MovieDataSection] {
-    return [MovieDataSection(sectionName: SectionName.fakeSection, items: Movie.fakeItems(count: 10))]
+    return [MovieDataSection(sectionName: SectionName.fakeSection, items: Movie.sampleItems(count: 10))]
   }
   
   

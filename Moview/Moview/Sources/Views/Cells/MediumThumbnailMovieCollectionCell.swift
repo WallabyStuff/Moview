@@ -6,15 +6,15 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
-
+import Hero
 import Kingfisher
 import SkeletonView
 
-import Hero
 
-class MediumThumbnailMovieCollectionCell: UICollectionViewCell {
+final class MediumThumbnailMovieCollectionCell: UICollectionViewCell {
     
   // MARK: - Constants
   

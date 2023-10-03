@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import RxDataSources
 
+
 class MovieBookmark: Object {
   
   static let genreArraySeparator = "/"

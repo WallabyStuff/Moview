@@ -5,9 +5,8 @@
 //  Created by Wallaby on 2023/02/05.
 //
 
-import Foundation
-
 import RxSwift
+
 
 protocol ViewModelType {
   associatedtype Input

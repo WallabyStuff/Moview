@@ -11,7 +11,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class MainViewModel: ViewModelType {
+
+final class MainViewModel: ViewModelType {
   
   // MARK: - Constants
   
@@ -46,10 +47,10 @@ class MainViewModel: ViewModelType {
   static var fakeMovieItems: [MovieDataSection] {
     let newMovieSection = MovieDataSection(
       sectionName: SectionName.carouselSection,
-      items: Movie.fakeItems(count: 2))
+      items: Movie.sampleItems(count: 2))
     let recommendedMovieSection = MovieDataSection(
       sectionName: SectionName.recommendForYouSection,
-      items: Movie.fakeItems(count: 3))
+      items: Movie.sampleItems(count: 3))
     return [newMovieSection, recommendedMovieSection]
   }
   

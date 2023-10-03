@@ -6,12 +6,13 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
-
 import Hero
 
-class ThumbnailImageView: UIImageView {
+
+final class ThumbnailImageView: UIImageView {
   
   // MARK: - Constants
   

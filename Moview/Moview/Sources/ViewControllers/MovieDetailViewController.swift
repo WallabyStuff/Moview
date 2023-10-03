@@ -6,15 +6,16 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
+import Hero
 
 import RxSwift
 import RxCocoa
 
-import Hero
 
-class MovieDetailViewController: UIViewController {
+final class MovieDetailViewController: UIViewController {
   
   // MARK: - Constants
   
@@ -295,7 +296,7 @@ class MovieDetailViewController: UIViewController {
   }
   
   
-  // MARK: - Binds
+  // MARK: - Binding
   
   private func bind() {
     bindInputs()

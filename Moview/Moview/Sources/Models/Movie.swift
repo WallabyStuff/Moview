@@ -5,8 +5,8 @@
 //  Created by Wallaby on 2023/02/05.
 //
 
-import Foundation
 import RxDataSources
+
 
 struct Movie: Codable {
   var id: String
@@ -20,17 +20,17 @@ struct Movie: Codable {
 }
 
 extension Movie {
-  public static func fakeItems(count: Int) -> [Movie] {
+  public static func sampleItems(count: Int) -> [Movie] {
     var fakeItems = [Movie]()
     
     for _ in 0..<count {
-      fakeItems.append(Movie.fakeItem())
+      fakeItems.append(Movie.sampleItem())
     }
     
     return fakeItems
   }
   
-  public static func fakeItem() -> Movie {
+  public static func sampleItem() -> Movie {
     return .init(
       id: UUID().uuidString,
       title: "",
@@ -74,4 +74,3 @@ extension Movie: Hashable {
     hasher.combine(id.hashValue)
   }
 }
-

@@ -7,6 +7,7 @@
 
 import RxDataSources
 
+
 struct MovieDataSection: AnimatableSectionModelType {
   
   // MARK: - Types

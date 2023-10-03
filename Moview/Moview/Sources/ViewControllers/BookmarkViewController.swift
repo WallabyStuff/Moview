@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 
@@ -13,7 +14,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class BookmarkViewController: UIViewController {
+
+final class BookmarkViewController: UIViewController {
   
   // MARK: - Constants
   
@@ -198,7 +200,7 @@ class BookmarkViewController: UIViewController {
   }
   
   
-  // MARK: - Binds
+  // MARK: - Binding
   
   private func bind() {
     bindInputs()

@@ -6,10 +6,12 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
-class CollectionViewFooterLoadingView: UICollectionReusableView {
+
+final class CollectionViewFooterLoadingView: UICollectionReusableView {
   
   // MARK: - Constants
   
