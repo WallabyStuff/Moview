@@ -223,7 +223,6 @@
 				8EF65F6E298E2CCB00EEAB2A /* Views */,
 				8EF65F63298E128F00EEAB2A /* ViewControllers */,
 				8EF65F69298E223700EEAB2A /* Utils */,
-				8E418F52298F7A2B0044EFF0 /* RX */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -261,6 +260,7 @@
 				8E418F55298F82FB0044EFF0 /* SkeletonView+Custom.swift */,
 				8E8E7DFD298FC117005FE272 /* SafeAreaGuide.swift */,
 				8E22FD172993AA9D00EE36E3 /* UIView+BounceAnimation.swift */,
+				8E418F52298F7A2B0044EFF0 /* RX */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
