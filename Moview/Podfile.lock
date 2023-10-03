@@ -1,0 +1,86 @@
+PODS:
+  - Alamofire (5.6.4)
+  - Differentiator (5.0.0)
+  - Hero (1.6.2)
+  - Kingfisher (7.6.2)
+  - R.swift (7.3.0)
+  - Realm (10.36.0):
+    - Realm/Headers (= 10.36.0)
+  - Realm/Headers (10.36.0)
+  - RealmSwift (10.36.0):
+    - Realm (= 10.36.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - SkeletonView (1.30.4)
+  - SnapKit (5.6.0)
+  - SwiftLint (0.50.3)
+  - SwiftyJSON (5.0.1)
+  - Then (3.0.0)
+  - Toast-Swift (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - Hero
+  - Kingfisher
+  - R.swift
+  - RealmSwift
+  - RxCocoa
+  - RxDataSources
+  - RxSwift
+  - SkeletonView
+  - SnapKit
+  - SwiftLint
+  - SwiftyJSON
+  - Then
+  - Toast-Swift
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Differentiator
+    - Hero
+    - Kingfisher
+    - R.swift
+    - Realm
+    - RealmSwift
+    - RxCocoa
+    - RxDataSources
+    - RxRelay
+    - RxSwift
+    - SkeletonView
+    - SnapKit
+    - SwiftLint
+    - SwiftyJSON
+    - Then
+    - Toast-Swift
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
+  Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
+  R.swift: cef1c530541cb49412752721797f10dae6b32d11
+  Realm: 3fd136cb4c83a927482a7f1612496d37beed3cf5
+  RealmSwift: 513d4dcbf5bfc4d573454088b592685fc48dd716
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  Then: 844265ae87834bbe1147d91d5d41a404da2ec27d
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+
+PODFILE CHECKSUM: 31f2e0d0c3035dcd001467b0c56692a22fb5dbbe
+
+COCOAPODS: 1.11.3
