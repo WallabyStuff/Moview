@@ -6,10 +6,12 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 
-class SectionHeaderCollectionReusableView: UICollectionReusableView {
+
+final class SectionHeaderCollectionReusableView: UICollectionReusableView {
   
   // MARK: - Constants
   

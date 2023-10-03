@@ -7,13 +7,17 @@
 
 import UIKit
 
-class GenreCollectionFlowLayout: UICollectionViewFlowLayout {
+
+final class GenreCollectionFlowLayout: UICollectionViewFlowLayout {
   
   // MARK: - Constants
   
   struct Metric {
     static let itemSpacing = 8.f
   }
+  
+  
+  // MARK: - Methods
   
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     self.minimumLineSpacing = 10.0

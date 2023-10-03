@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 
@@ -13,9 +14,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-import RealmSwift
 
-class MainViewController: UIViewController {
+final class MainViewController: UIViewController {
   
   // MARK: - Constants
   
@@ -335,7 +335,7 @@ class MainViewController: UIViewController {
   }
   
   
-  // MARK: - Binds
+  // MARK: - Binding
   
   private func bind() {
     bindInputs()

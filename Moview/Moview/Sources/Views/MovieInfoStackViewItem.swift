@@ -6,11 +6,12 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 
-class MovieInfoStackViewItem: UIView {
-  
+
+final class MovieInfoStackViewItem: UIView {
   
   // MARK: - Constants
   

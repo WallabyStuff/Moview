@@ -6,11 +6,13 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 import Kingfisher
 
-class DimmingBlurView: UIView {
+
+final class DimmingBlurView: UIView {
   
   // MARK: - Constants
   

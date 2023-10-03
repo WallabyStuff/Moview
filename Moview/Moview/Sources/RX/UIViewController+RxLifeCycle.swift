@@ -5,32 +5,47 @@
 //  Created by Wallaby on 2023/02/05.
 //
 
-import UIKit
-
 import RxSwift
 import RxCocoa
 
-extension Reactive where Base: UIViewController {
-  var viewDidLoad: ControlEvent<Void> {
-    let source = self.methodInvoked(#selector(Base.viewDidLoad)).map { _ in }
-    return ControlEvent(events: source)
+
+extension RxSwift.Reactive where Base: UIViewController {
+  
+  // MARK: - ViewDidLoad
+  
+  public var viewDidLoad: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewDidLoad))
+      .map { $0.first as? Bool ?? false }
   }
   
-  var viewWillAppear: ControlEvent<Bool> {
-    let source = self.methodInvoked(#selector(Base.viewWillAppear(_:)))
+  
+  // MARK: - ViewWillAppear
+  
+  public var viewWillAppear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
       .map { $0.first as? Bool ?? false }
-    return ControlEvent(events: source)
   }
   
-  var viewDidAppear: ControlEvent<Bool> {
-    let source = self.methodInvoked(#selector(Base.viewDidAppear(_:)))
+  // MARK: - ViewDidAppear
+  
+  public var viewDidAppear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewDidAppear(_:)))
       .map { $0.first as? Bool ?? false }
-    return ControlEvent(events: source)
   }
   
-  var viewWillDisappear: ControlEvent<Bool> {
-    let source = self.methodInvoked(#selector(Base.viewWillDisappear(_:)))
+  
+  // MARK: - ViewWillDisappear
+  
+  public var viewWillDisappear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewWillDisappear(_:)))
       .map { $0.first as? Bool ?? false }
-    return ControlEvent(events: source)
+  }
+  
+  
+  // MARK: - ViewDidDisappear
+  
+  public var viewDidDisappear: Observable<Bool> {
+    return methodInvoked(#selector(UIViewController.viewDidDisappear(_:)))
+      .map { $0.first as? Bool ?? false }
   }
 }

@@ -10,7 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MovieDetailViewModel: ViewModelType {
+
+final class MovieDetailViewModel: ViewModelType {
   
   // MARK: - Properties
   
@@ -21,7 +22,7 @@ class MovieDetailViewModel: ViewModelType {
   }
   
   struct Output {
-    let currentMovie = BehaviorRelay<Movie>(value: Movie.fakeItem())
+    let currentMovie = BehaviorRelay<Movie>(value: Movie.sampleItem())
     let bookmarkState = BehaviorRelay<Bool>(value: false)
   }
   

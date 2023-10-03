@@ -11,13 +11,15 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class BookmarkViewModel: ViewModelType {
+
+final class BookmarkViewModel: ViewModelType {
   
   // MARK: - Constants
   
   struct SectionName {
     static let bookmarkSection = "BookmarkSection"
   }
+  
   
   // MARK: - Properties
   

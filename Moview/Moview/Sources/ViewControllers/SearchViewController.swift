@@ -16,7 +16,8 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class SearchViewController: UIViewController {
+
+final class SearchViewController: UIViewController {
   
   // MARK: - Constants
   
@@ -264,7 +265,7 @@ class SearchViewController: UIViewController {
   }
   
   
-  // MARK: - Binds
+  // MARK: - Binding
   
   private func bind() {
     bindInputs()

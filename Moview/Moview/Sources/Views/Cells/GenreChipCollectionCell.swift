@@ -6,10 +6,12 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
 
-class GenreChipCollectionCell: UICollectionViewCell {
+
+final class GenreChipCollectionCell: UICollectionViewCell {
   
   // MARK: - Constants
   

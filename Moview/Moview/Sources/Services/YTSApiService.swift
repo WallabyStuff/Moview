@@ -12,7 +12,8 @@ import SwiftyJSON
 
 import RxSwift
 
-class YTSApiService {
+
+final class YTSApiService {
   
   // MARK: - Properties
   

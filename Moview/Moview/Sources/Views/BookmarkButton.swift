@@ -7,7 +7,8 @@
 
 import UIKit
 
-class BookmarkButton: UIButton {
+
+final class BookmarkButton: UIButton {
   
   // MARK: - Constants
   

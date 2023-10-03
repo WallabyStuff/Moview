@@ -7,12 +7,18 @@
 
 import UIKit
 
+
 extension UIView {
+
+  // MARK: - Constants
   
   static let SHRINK_ANIMATION_DEFAULT_DURATION: CGFloat = 0.22
   static let RELEASE_ANIMATION_DEFAULT_DURATION: CGFloat = 0.25
   
   static let SHRINK_DEFAULT_SCALE: CGFloat = 0.95
+  
+  
+  // MARK: - Methods
   
   func shrink(duration: CGFloat = SHRINK_ANIMATION_DEFAULT_DURATION,
                      scale: CGFloat = SHRINK_DEFAULT_SCALE ) {
@@ -35,4 +41,3 @@ extension UIView {
       })
   }
 }
-

@@ -7,7 +7,8 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+
+final class MainTabBarController: UITabBarController {
   
   // MARK: - Properties
   

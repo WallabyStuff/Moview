@@ -6,17 +6,18 @@
 //
 
 import UIKit
+
 import Then
 import SnapKit
-
 import Hero
 
 import RxSwift
 import RxCocoa
 
-class NavigationView: UIView {
+
+final class NavigationView: UIView {
   
-  // MARK: - Constans
+  // MARK: - Constants
   
   struct Metric {
     static let separatorWidth = 1.f
