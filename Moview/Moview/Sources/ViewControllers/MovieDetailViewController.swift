@@ -68,6 +68,7 @@ final class MovieDetailViewController: UIViewController {
     return layout
   }
   private var thumbnailImageViewTopConstraint: Constraint!
+  private var isDismissing = false
   
   
   // MARK: - UI
@@ -319,7 +320,10 @@ final class MovieDetailViewController: UIViewController {
     
     bookmarkButton.rx.tap
       .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-      .map { self.bookmarkButton.isBookmarked }
+      .map { [weak self] _ -> Bool? in
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        return self?.bookmarkButton.isBookmarked
+      }
       .bind(to: viewModel.input.didTapBookmarkButton)
       .disposed(by: disposeBag)
   }
@@ -391,7 +395,12 @@ final class MovieDetailViewController: UIViewController {
         let dismissThreshold = vc.view.frame.height * Metric.pullDownToDismissThresholdRatio
         
         if abs(offset.y) > dismissThreshold {
-          vc.dismiss(animated: true)
+          // 중복 실행 방지 플래그 isDismissing
+          if vc.isDismissing == false {
+            vc.isDismissing = true
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            vc.dismiss(animated: true)
+          }
         }
       })
       .disposed(by: disposeBag)

@@ -410,6 +410,7 @@ final class MainViewController: UIViewController {
     viewModel.output.presentMovieDetail
       .asDriver(onErrorDriveWith: .empty())
       .drive(with: self, onNext: { vc, movie in
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         vc.presentMovieDetailVC(movie: movie)
       })
       .disposed(by: disposeBag)

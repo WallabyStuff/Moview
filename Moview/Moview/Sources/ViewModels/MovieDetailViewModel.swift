@@ -17,7 +17,7 @@ final class MovieDetailViewModel: ViewModelType {
   
   struct Input {
     let viewDidLoad = PublishRelay<Void>()
-    let didTapBookmarkButton = PublishRelay<Bool>()
+    let didTapBookmarkButton = PublishRelay<Bool?>()
     let didMovieItemSelected = PublishRelay<IndexPath>()
   }
   
@@ -57,7 +57,11 @@ final class MovieDetailViewModel: ViewModelType {
     
     input.didTapBookmarkButton
       .flatMap { [weak self] isBookmarked -> Completable in
-        guard let self = self else { return .empty() }
+        guard let self,
+              let isBookmarked else {
+          return .empty()
+        }
+        
         if isBookmarked {
           output.bookmarkState.accept(false)
           return self.bookmarkManager.deleteData(id: output.currentMovie.value.id)
