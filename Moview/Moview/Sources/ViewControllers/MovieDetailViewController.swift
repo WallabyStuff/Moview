@@ -320,7 +320,10 @@ final class MovieDetailViewController: UIViewController {
     
     bookmarkButton.rx.tap
       .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-      .map { self.bookmarkButton.isBookmarked }
+      .map { [weak self] _ -> Bool? in
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        return self?.bookmarkButton.isBookmarked
+      }
       .bind(to: viewModel.input.didTapBookmarkButton)
       .disposed(by: disposeBag)
   }
