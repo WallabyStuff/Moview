@@ -68,6 +68,7 @@ final class MovieDetailViewController: UIViewController {
     return layout
   }
   private var thumbnailImageViewTopConstraint: Constraint!
+  private var isDismissing = false
   
   
   // MARK: - UI
@@ -391,7 +392,12 @@ final class MovieDetailViewController: UIViewController {
         let dismissThreshold = vc.view.frame.height * Metric.pullDownToDismissThresholdRatio
         
         if abs(offset.y) > dismissThreshold {
-          vc.dismiss(animated: true)
+          // 중복 실행 방지 플래그 isDismissing
+          if vc.isDismissing == false {
+            vc.isDismissing = true
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            vc.dismiss(animated: true)
+          }
         }
       })
       .disposed(by: disposeBag)

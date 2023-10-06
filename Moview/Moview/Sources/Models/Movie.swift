@@ -8,7 +8,7 @@
 import RxDataSources
 
 
-struct Movie: Codable {
+struct Movie: Decodable {
   var id: String
   var title: String
   var rating: Float
