@@ -49,8 +49,8 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
   
   // MARK: - LifeCycle
   
-  init() {
-    super.init(frame: .zero)
+  override init(frame: CGRect) {
+    super.init(frame: frame)
     setup()
   }
   

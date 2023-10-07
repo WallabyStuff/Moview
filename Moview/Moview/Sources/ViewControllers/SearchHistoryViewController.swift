@@ -7,6 +7,13 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
+import RxSwift
+import RxCocoa
+import RxDataSources
+
 
 final class SearchHistoryViewController: UIViewController {
   
@@ -14,6 +21,7 @@ final class SearchHistoryViewController: UIViewController {
   
   enum Metric {
     static let celHeight = 56.f
+    static let collectionViewVerticalInset = 28.f
   }
   
   
@@ -25,6 +33,7 @@ final class SearchHistoryViewController: UIViewController {
   // MARK: - Properties
   
   private let viewModel: ViewModel
+  private var disposeBag = DisposeBag()
   
   private var collectionViewLayout: UICollectionViewCompositionalLayout = {
     let itemSize = NSCollectionLayoutSize(
@@ -43,7 +52,20 @@ final class SearchHistoryViewController: UIViewController {
   
   // MARK: - UI
   
-  lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+  lazy var searchHistoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout).then {
+    $0.register(SearchHistoryCollectionCell.self,
+                forCellWithReuseIdentifier: SearchHistoryCollectionCell.identifier)
+    $0.alwaysBounceVertical = true
+    $0.contentInset = .init(top: Metric.collectionViewVerticalInset,
+                            left: 0,
+                            bottom: Metric.collectionViewVerticalInset,
+                            right: 0)
+  }
+  private let emptyStateLabel = UILabel().then {
+    $0.font = .systemFont(ofSize: 17, weight: .semibold)
+    $0.text = "Empty search history"
+    $0.textColor = R.color.textGrayDarker()!
+  }
   
   
   // MARK: - Initializers
@@ -63,11 +85,13 @@ final class SearchHistoryViewController: UIViewController {
   
   private func setup() {
     setupView()
+    bind()
   }
   
   private func setupView() {
    setupBackground()
     setupCollectionView()
+    setupEmptyStateLabel()
   }
   
   private func setupBackground() {
@@ -75,18 +99,55 @@ final class SearchHistoryViewController: UIViewController {
   }
   
   private func setupCollectionView() {
-    view.addSubview(collectionView)
-    collectionView.snp.makeConstraints {
+    view.addSubview(searchHistoryCollectionView)
+    searchHistoryCollectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-    collectionView.backgroundColor = .white
+  }
+  
+  private func setupEmptyStateLabel() {
+    view.addSubview(emptyStateLabel)
+    emptyStateLabel.snp.makeConstraints {
+      $0.center.equalToSuperview()
+    }
   }
   
   
   // MARK: - Bindings
   
   private func bind() {
+    bindInputs()
+    bindOutputs()
+  }
+  
+  private func bindInputs() {
+    rx.viewWillAppear
+      .map { _ in }
+      .bind(to: viewModel.input.viewWillAppear)
+      .disposed(by: disposeBag)
+  }
+  
+  private func bindOutputs() {
+    viewModel.output
+      .searchHistories
+      .bind(to: searchHistoryCollectionView.rx.items(cellIdentifier: SearchHistoryCollectionCell.identifier, cellType: SearchHistoryCollectionCell.self)) { index, item, cell in
+        cell.configure(item) {
+          // delete item action
+        }
+      }
+      .disposed(by: disposeBag)
     
+    viewModel.output
+      .searchHistories
+      .asDriver()
+      .drive(with: self, onNext: { vc, histories in
+        if histories.isEmpty {
+          vc.emptyStateLabel.isHidden = false
+        } else {
+          vc.emptyStateLabel.isHidden = true
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }
 
