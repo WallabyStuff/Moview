@@ -46,6 +46,10 @@
 		8EE2FE502AD1F67100BBB58F /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE4F2AD1F67100BBB58F /* SearchHistory.swift */; };
 		8EE2FE522AD1F72100BBB58F /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE512AD1F72100BBB58F /* SearchHistoryManager.swift */; };
 		8EE2FE562AD1FAA100BBB58F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE552AD1FAA100BBB58F /* RealmManager.swift */; };
+		8EE2FE582AD1FFA200BBB58F /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE572AD1FFA200BBB58F /* SearchHistoryViewController.swift */; };
+		8EE2FE5A2AD1FFAB00BBB58F /* SearchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE592AD1FFAB00BBB58F /* SearchHistoryViewModel.swift */; };
+		8EE2FE5C2AD205E200BBB58F /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE5B2AD205E200BBB58F /* UIViewController+Preview.swift */; };
+		8EE2FE5E2AD2064E00BBB58F /* UIView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE2FE5D2AD2064E00BBB58F /* UIView+Preview.swift */; };
 		8EF65F66298E138E00EEAB2A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF65F65298E138E00EEAB2A /* R.generated.swift */; };
 		8EF65F68298E18F500EEAB2A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF65F67298E18F500EEAB2A /* MainTabBarController.swift */; };
 		8EF65F6B298E225D00EEAB2A /* FloatLiteralType+Float.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF65F6A298E225D00EEAB2A /* FloatLiteralType+Float.swift */; };
@@ -97,6 +101,10 @@
 		8EE2FE4F2AD1F67100BBB58F /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		8EE2FE512AD1F72100BBB58F /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		8EE2FE552AD1FAA100BBB58F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		8EE2FE572AD1FFA200BBB58F /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
+		8EE2FE592AD1FFAB00BBB58F /* SearchHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewModel.swift; sourceTree = "<group>"; };
+		8EE2FE5B2AD205E200BBB58F /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
+		8EE2FE5D2AD2064E00BBB58F /* UIView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Preview.swift"; sourceTree = "<group>"; };
 		8EF65F65298E138E00EEAB2A /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		8EF65F67298E18F500EEAB2A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		8EF65F6A298E225D00EEAB2A /* FloatLiteralType+Float.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FloatLiteralType+Float.swift"; sourceTree = "<group>"; };
@@ -141,6 +149,7 @@
 				8E68BE57298F06B500844837 /* MainViewModel.swift */,
 				8E68BE66298F3FD300844837 /* MovieDetailViewModel.swift */,
 				8EAB6ED0298F5DA900BAC987 /* BookmarkViewModel.swift */,
+				8EE2FE592AD1FFAB00BBB58F /* SearchHistoryViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -263,6 +272,7 @@
 				8E68BE5E298F23CA00844837 /* MovieDetailViewController.swift */,
 				8E68BE68298F591800844837 /* BookmarkViewController.swift */,
 				8E8E7DFF298FC25E005FE272 /* SearchViewController.swift */,
+				8EE2FE572AD1FFA200BBB58F /* SearchHistoryViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -278,6 +288,8 @@
 				8E8E7DFD298FC117005FE272 /* SafeAreaGuide.swift */,
 				8E22FD172993AA9D00EE36E3 /* UIView+BounceAnimation.swift */,
 				8E418F52298F7A2B0044EFF0 /* RX */,
+				8EE2FE5B2AD205E200BBB58F /* UIViewController+Preview.swift */,
+				8EE2FE5D2AD2064E00BBB58F /* UIView+Preview.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -431,7 +443,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -447,6 +459,7 @@
 				8E68BE69298F591800844837 /* BookmarkViewController.swift in Sources */,
 				8E8E7E06298FCC61005FE272 /* SearchViewModel.swift in Sources */,
 				8E936ACF298E72FF007F9043 /* SectionHeaderCollectionReusableView.swift in Sources */,
+				8EE2FE5A2AD1FFAB00BBB58F /* SearchHistoryViewModel.swift in Sources */,
 				8E22FD182993AA9D00EE36E3 /* UIView+BounceAnimation.swift in Sources */,
 				8E936ADC298EE9BE007F9043 /* YTSApiService.swift in Sources */,
 				8EE2FE562AD1FAA100BBB58F /* RealmManager.swift in Sources */,
@@ -455,6 +468,7 @@
 				8E68BE5D298F1AFB00844837 /* MovieDataSection.swift in Sources */,
 				8E68BE63298F374A00844837 /* GenreChipCollectionCell.swift in Sources */,
 				8E68BE67298F3FD300844837 /* MovieDetailViewModel.swift in Sources */,
+				8EE2FE582AD1FFA200BBB58F /* SearchHistoryViewController.swift in Sources */,
 				8E936AD1298E7610007F9043 /* MediumThumbnailMovieCollectionCell.swift in Sources */,
 				8E68BE58298F06B500844837 /* MainViewModel.swift in Sources */,
 				8E418F56298F82FB0044EFF0 /* SkeletonView+Custom.swift in Sources */,
@@ -469,6 +483,7 @@
 				8E418F58298F8A780044EFF0 /* DynamicHeightCollectionView.swift in Sources */,
 				8EE2FE502AD1F67100BBB58F /* SearchHistory.swift in Sources */,
 				8E96AED1298E0AF6003BA11E /* SceneDelegate.swift in Sources */,
+				8EE2FE5C2AD205E200BBB58F /* UIViewController+Preview.swift in Sources */,
 				8E8E7DFE298FC117005FE272 /* SafeAreaGuide.swift in Sources */,
 				8E418F5E298F92D60044EFF0 /* DimmingBlurView.swift in Sources */,
 				8EF65F70298E2E0300EEAB2A /* LargeMovieThumbnailCollectionCell.swift in Sources */,
@@ -476,6 +491,7 @@
 				8E51935729B8691F0039114F /* CollectionViewFooterLoadingView.swift in Sources */,
 				8E68BE5A298F06FD00844837 /* ViewModelType.swift in Sources */,
 				8EE2FE522AD1F72100BBB58F /* SearchHistoryManager.swift in Sources */,
+				8EE2FE5E2AD2064E00BBB58F /* UIView+Preview.swift in Sources */,
 				8E22FD1A2998C8AB00EE36E3 /* ThumbnailImageView.swift in Sources */,
 				8E68BE61298F2A0700844837 /* BookmarkButton.swift in Sources */,
 				8EF65F66298E138E00EEAB2A /* R.generated.swift in Sources */,
