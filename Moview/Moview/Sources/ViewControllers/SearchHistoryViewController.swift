@@ -52,7 +52,7 @@ final class SearchHistoryViewController: UIViewController {
   
   // MARK: - UI
   
-  lazy var searchHistoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout).then {
+  private lazy var searchHistoryCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout).then {
     $0.register(SearchHistoryCollectionCell.self,
                 forCellWithReuseIdentifier: SearchHistoryCollectionCell.identifier)
     $0.alwaysBounceVertical = true

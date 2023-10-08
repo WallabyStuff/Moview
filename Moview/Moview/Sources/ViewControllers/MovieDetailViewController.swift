@@ -73,8 +73,8 @@ final class MovieDetailViewController: UIViewController {
   
   // MARK: - UI
   
-  let navigationView = NavigationView()
-  let closeButton = UIButton().then {
+  private let navigationView = NavigationView()
+  private let closeButton = UIButton().then {
     $0.setImage(R.image.close(), for: .normal)
     $0.tintColor = R.color.iconWhite()
     $0.imageEdgeInsets = .init(common: Metric.closeButtonImageInset)
@@ -84,36 +84,36 @@ final class MovieDetailViewController: UIViewController {
     $0.layer.shadowOpacity = Metric.closeButtonShadowOpacity
     $0.alpha = 0
   }
-  let scrollView = UIScrollView()
-  let scrollContentView = UIView()
-  let thumbnailImageContainerView = UIView().then {
+  private let scrollView = UIScrollView()
+  private let scrollContentView = UIView()
+  private let thumbnailImageContainerView = UIView().then {
     $0.backgroundColor = R.color.backgroundBlackLight()
   }
-  let thumbnailImageView = ThumbnailImageView(emptyStateImageSize: Metric.thumbnailImageEmptyStateImageSize).then {
+  private let thumbnailImageView = ThumbnailImageView(emptyStateImageSize: Metric.thumbnailImageEmptyStateImageSize).then {
     $0.backgroundColor = R.color.backgroundBlackLight()
     $0.contentMode = .scaleAspectFill
     $0.clipsToBounds = true
   }
-  let titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.textColor = R.color.textWhite()
     $0.numberOfLines = Metric.titleLabelMaxLine
     $0.font = UIFont.systemFont(ofSize: Metric.titleLabelFontSize, weight: .heavy)
   }
-  let bookmarkButton = BookmarkButton(isBookmarked: false)
-  var genreChipCollectionView: DynamicHeightCollectionView!
-  let movieInfoStackView = UIStackView().then {
+  private let bookmarkButton = BookmarkButton(isBookmarked: false)
+  private var genreChipCollectionView: DynamicHeightCollectionView!
+  private let movieInfoStackView = UIStackView().then {
     $0.axis = .horizontal
     $0.distribution = .fillEqually
   }
-  let runtimeInfoItem = MovieInfoStackViewItem()
-  let likesInfoItem = MovieInfoStackViewItem()
-  let ratingsInfoItem = MovieInfoStackViewItem()
-  let summaryHeaderLabel = UILabel().then {
+  private let runtimeInfoItem = MovieInfoStackViewItem()
+  private let likesInfoItem = MovieInfoStackViewItem()
+  private let ratingsInfoItem = MovieInfoStackViewItem()
+  private let summaryHeaderLabel = UILabel().then {
     $0.text = "Plot Summary"
     $0.textColor = R.color.textWhite()
     $0.font = UIFont.systemFont(ofSize: Metric.summaryHeaderLabelFontSize, weight: .bold)
   }
-  let summaryLabel = UILabel().then {
+  private let summaryLabel = UILabel().then {
     $0.textColor = R.color.textGray()
     $0.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .medium)
     $0.numberOfLines = 0

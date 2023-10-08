@@ -25,7 +25,7 @@ final class SectionHeaderCollectionReusableView: UICollectionReusableView {
   
   // MARK: - UI
   
-  let titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.font = UIFont.systemFont(ofSize: Metric.titleLabelFontSize, weight: .bold)
     $0.textColor = R.color.textWhite()
   }
