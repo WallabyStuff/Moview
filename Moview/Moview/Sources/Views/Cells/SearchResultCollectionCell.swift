@@ -19,7 +19,7 @@ final class SearchResultCollectionCell: UICollectionViewCell {
   
   // MARK: - Constants
   
-  static let identifier = "SearchResultCollectionCell"
+  static let identifier = String(describing: SearchResultCollectionCell.self)
   
   struct Metric {
     static let verticalInset = 12.f
