@@ -18,7 +18,7 @@ final class SearchHistoryViewModel: ViewModelType {
   struct Input {
     let viewWillAppear = PublishRelay<Void>()
     let addHistory = PublishRelay<String>()
-    let removeHistory = PublishRelay<IndexPath>()
+    let removeHistory = PublishRelay<SearchHistory>()
   }
   
   struct Output {
@@ -41,6 +41,10 @@ final class SearchHistoryViewModel: ViewModelType {
   
   public func addHistory(_ term: String) {
     input.addHistory.accept(term)
+  }
+  
+  public func deleteHistory(_ item: SearchHistory) {
+    input.removeHistory.accept(item)
   }
   
   
@@ -80,18 +84,19 @@ final class SearchHistoryViewModel: ViewModelType {
       .disposed(by: disposeBag)
     
     input.removeHistory
-      .flatMap { indexPath in
+      .flatMap { item in
         // remove search history locally
         var histories = output.searchHistories.value
-        histories.remove(at: indexPath.row)
-        output.searchHistories.accept(histories)
+        if let index = histories.firstIndex(of: item) {
+          histories.remove(at: index)
+          output.searchHistories.accept(histories)
+        }
         
-        let searchHistory = output.searchHistories.value[indexPath.row]
-        return historyManager.deleteData(searchHistory)
+        return historyManager.deleteData(item)
       }
       .subscribe()
       .disposed(by: disposeBag)
     
-    self.output = Output()
+    self.output = output
   }
 }

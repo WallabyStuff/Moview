@@ -125,14 +125,21 @@ final class SearchHistoryViewController: UIViewController {
       .map { _ in }
       .bind(to: viewModel.input.viewWillAppear)
       .disposed(by: disposeBag)
+    
+    searchHistoryCollectionView.rx.didScroll
+      .asDriver()
+      .drive(with: self, onNext: { vc, _ in
+        vc.view.endEditing(true)
+      })
+      .disposed(by: disposeBag)
   }
   
   private func bindOutputs() {
     viewModel.output
       .searchHistories
       .bind(to: searchHistoryCollectionView.rx.items(cellIdentifier: SearchHistoryCollectionCell.identifier, cellType: SearchHistoryCollectionCell.self)) { index, item, cell in
-        cell.configure(item) {
-          // delete item action
+        cell.configure(item) { [weak self] in
+          self?.viewModel.deleteHistory(item)
         }
       }
       .disposed(by: disposeBag)

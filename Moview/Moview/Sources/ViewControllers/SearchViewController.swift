@@ -103,6 +103,7 @@ final class SearchViewController: UIViewController {
     }
   }
   
+  
   // MARK: - Initializers
   
   init(viewModel: SearchViewModel) {
@@ -215,6 +216,7 @@ final class SearchViewController: UIViewController {
         return nil
       }
       
+      self?.view.endEditing(true)
       self?.showSearchResult()
       return self?.searchTerm
     }
