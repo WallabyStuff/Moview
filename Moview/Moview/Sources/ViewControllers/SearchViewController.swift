@@ -41,84 +41,30 @@ final class SearchViewController: UIViewController {
     static let searchTextFieldRightPadding = 44.f
     static let searchTextFieldBottomMargin = 8.f
     static let searchTextFieldLeftMargin = 12.f
-    
-    static let estimatedSearchResultCellHeight = 150.f
-    static let searchResultCollectionViewTopInset = 12.f
-    static let searchResultCollectionViewBottomInset = 100.f
-    
-    static let pageLoadingFooterHeight = 100.f
-    
-    static let loadNextPageThreshold = 1000.f
   }
+  
   
   // MARK: - Properties
   
   private var viewModel: SearchViewModel
   private var disposeBag = DisposeBag()
-  private var searchResultCollectionViewLayout: UICollectionViewCompositionalLayout {
-    let itemSize = NSCollectionLayoutSize(
-      widthDimension: .fractionalWidth(1),
-      heightDimension: .estimated(Metric.estimatedSearchResultCellHeight))
-    let item = NSCollectionLayoutItem(layoutSize: itemSize)
-    
-    let group = NSCollectionLayoutGroup.vertical(
-      layoutSize: itemSize,
-      subitems: [item])
-    
-    let section = NSCollectionLayoutSection(group: group)
-    // Footer view layout
-    section.boundarySupplementaryItems = [
-      .init(layoutSize: .init(
-        widthDimension: .fractionalWidth(1),
-        heightDimension: .absolute(Metric.pageLoadingFooterHeight)),
-            elementKind: UICollectionView.elementKindSectionFooter,
-            alignment: .bottom)
-    ]
-    
-    let layout = UICollectionViewCompositionalLayout(section: section)
-    return layout
-  }
   
   private var searchTerm: String {
     return (searchTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
   }
   
-  // Datasources
-  private var dataSource: RxCollectionViewSectionedAnimatedDataSource<MovieDataSection> {
-    return .init(configureCell: { dataSource, collectionView, indexPath, item in
-      guard let searchResultCell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchResultCollectionCell.identifier, for: indexPath) as? SearchResultCollectionCell else {
-        return .init()
-      }
-      
-      searchResultCell.configure(movie: item, thumbnailImageViewHeroId: item.id)
-      return searchResultCell
-    }, configureSupplementaryView: { section, collectionView, supplementaryType, indexPath in
-      if supplementaryType == UICollectionView.elementKindSectionFooter {
-        guard let loadingFooterView = collectionView.dequeueReusableSupplementaryView(
-          ofKind: UICollectionView.elementKindSectionFooter,
-          withReuseIdentifier: CollectionViewFooterLoadingView.identifier,
-          for: indexPath) as? CollectionViewFooterLoadingView else {
-          return .init()
-        }
-        
-        loadingFooterView.stopLoading()
-        return loadingFooterView
-      }
-      
-      return .init()
-    })
-  }
+  private var viewDidAppear = false
   
   
   // MARK: - UI
   
-  let navigationView = NavigationView()
-  let backButton = UIButton().then {
+  private let navigationView = NavigationView()
+  private let backButton = UIButton().then {
     $0.setImage(R.image.back(), for: .normal)
     $0.tintColor = R.color.iconWhite()
     $0.imageEdgeInsets = .init(common: Metric.backButtonImageInset)
   }
-  let searchTextField = UITextField().then {
+  private let searchTextField = UITextField().then {
     $0.attributedPlaceholder = NSAttributedString(
       string: "Quick search",
       attributes: [NSAttributedString.Key.foregroundColor: R.color.textGrayDarker()!]
@@ -128,7 +74,7 @@ final class SearchViewController: UIViewController {
     $0.returnKeyType = .search
     $0.tintColor = R.color.accentRed()
   }
-  let searchButton = UIButton().then {
+  private let searchButton = UIButton().then {
     $0.hero.id = "SearchButton"
     $0.setImage(R.image.loupe(), for: .normal)
     $0.tintColor = R.color.iconWhite()
@@ -136,10 +82,9 @@ final class SearchViewController: UIViewController {
     $0.backgroundColor = .clear
     $0.layer.cornerRadius = Metric.searchTextFieldCornerRadius
   }
-  var searchResultCollectionView: UICollectionView!
-  var searchResultPlaceholder = UILabel().then {
-    $0.textColor = R.color.textGrayDarker()
-  }
+  private let containerView = UIView()
+  private var searchHistoryVC: SearchHistoryViewController?
+  private var searchResultVC: SearchResultViewController?
   
   
   // MARK: - LifeCycle
@@ -151,7 +96,11 @@ final class SearchViewController: UIViewController {
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    searchTextField.becomeFirstResponder()
+    
+    if viewDidAppear == false {
+      searchTextField.becomeFirstResponder()
+      viewDidAppear = true
+    }
   }
   
   // MARK: - Initializers
@@ -179,8 +128,7 @@ final class SearchViewController: UIViewController {
     setupBackground()
     setupNavigationView()
     setupSearchButton()
-    setupSearchResultCollectionView()
-    bindSearchResultPlaceholder()
+    setupContainerView()
   }
   
   private func setupBackground() {
@@ -228,39 +176,11 @@ final class SearchViewController: UIViewController {
     }
   }
   
-  private func setupSearchResultCollectionView() {
-    /// Register cell
-    searchResultCollectionView = UICollectionView(frame: .zero, collectionViewLayout: searchResultCollectionViewLayout)
-    searchResultCollectionView.register(SearchResultCollectionCell.self, forCellWithReuseIdentifier: SearchResultCollectionCell.identifier)
-    searchResultCollectionView.register(CollectionViewFooterLoadingView.self,
-                                        forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionViewFooterLoadingView.identifier)
-    
-    /// Setup constraints
-    view.insertSubview(searchResultCollectionView, at: 0)
-    searchResultCollectionView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
-    }
-    
-    /// Setup insets
-    searchResultCollectionView.contentInset = .init(
-      top: Metric.navigationViewHeight + Metric.searchResultCollectionViewTopInset,
-      bottom: Metric.searchResultCollectionViewBottomInset)
-    searchResultCollectionView.scrollIndicatorInsets = .init(
-      top: Metric.navigationViewHeight + Metric.searchResultCollectionViewTopInset)
-    
-    /// Configure navigation bar opaque threshold
-    navigationView.configureScrollView(
-      searchResultCollectionView,
-      threshold: Metric.navigationViewHeight + SafeAreaGuide.top)
-    
-    // Etc
-    searchResultCollectionView.delaysContentTouches = false
-  }
-  
-  private func bindSearchResultPlaceholder() {
-    view.addSubview(searchResultPlaceholder)
-    searchResultPlaceholder.snp.makeConstraints {
-      $0.centerX.centerY.equalToSuperview()
+  private func setupContainerView() {
+    view.addSubview(containerView)
+    containerView.snp.makeConstraints {
+      $0.top.equalTo(navigationView.snp.bottom)
+      $0.horizontalEdges.bottom.equalToSuperview()
     }
   }
   
@@ -270,10 +190,14 @@ final class SearchViewController: UIViewController {
   private func bind() {
     bindInputs()
     bindOutputs()
-    bindCollectionViewScrollToEndEditing()
   }
   
   private func bindInputs() {
+    rx.viewDidLoad
+      .map { _ in }
+      .bind(to: viewModel.input.viewDidLoad)
+      .disposed(by: disposeBag)
+    
     backButton.rx.tap
       .asDriver()
       .drive(with: self, onNext: { vc, _ in
@@ -281,126 +205,43 @@ final class SearchViewController: UIViewController {
       })
       .disposed(by: disposeBag)
     
-    searchTextField.rx.controlEvent([.editingDidEndOnExit])
-      .map { [weak self] in
-        guard let self = self else { return "" }
-        return self.searchTerm
+    Observable.merge([
+      searchTextField.rx.controlEvent([.editingDidEndOnExit]).asObservable(),
+      searchButton.rx.tap.throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+    ])
+    .map { [weak self] in
+      if (self?.searchTerm ?? "").count < 2 {
+        self?.view.makeToast("Please enter at least two letter")
+        return nil
       }
-      .bind(to: viewModel.input.search)
-      .disposed(by: disposeBag)
+      
+      self?.showSearchResult()
+      return self?.searchTerm
+    }
+    .bind(to: viewModel.input.search)
+    .disposed(by: disposeBag)
     
-    searchButton.rx.tap
-      .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
-      .map { [weak self] in
-        guard let self = self else { return "" }
-        return self.searchTerm
-      }
-      .bind(to: viewModel.input.search)
-      .disposed(by: disposeBag)
-    
-    searchResultCollectionView.rx.itemSelected
-      .map { [weak self] indexPath in
-        self?.searchResultCollectionView.scrollToItem(at: indexPath, at: .centeredVertically, animated: true)
-        return indexPath
-      }
-      .bind(to: viewModel.input.didSelectItem)
-      .disposed(by: disposeBag)
-    searchResultCollectionView.backgroundColor = .clear
-
-    searchResultCollectionView.rx.contentOffset
-      .map { [weak self] offset in
-        guard let self = self else { return false }
-        if offset.y > self.searchResultCollectionView.contentSize.height - Metric.loadNextPageThreshold {
-          return true
-        } else {
-          return false
-        }
-      }
-      .bind(to: viewModel.input.reachToBottom)
-      .disposed(by: disposeBag)
-
-    searchResultCollectionView.rx.willDisplaySupplementaryView
+    searchTextField.rx.controlEvent([.editingDidBegin])
       .asDriver()
-      .drive(with: self, onNext: { vc, supplementary in
-        if let footerView = supplementary.supplementaryView as? CollectionViewFooterLoadingView {
-          if vc.viewModel.output.isPaging.value {
-            footerView.startLoading()
-          } else {
-            footerView.stopLoading()
-          }
-        }
+      .drive(onNext: { [weak self] in
+        self?.showSearchHistory()
       })
       .disposed(by: disposeBag)
   }
   
   private func bindOutputs() {
-    /// Show skeleton views when loading search results
-    viewModel.output.isLoading
-      .asDriver(onErrorDriveWith: .empty())
-      .drive(with: self, onNext: { vc, isLoading in
-        vc.searchResultCollectionView.scrollToTop(animated: false, offset: .init(x: 0, y: -(Metric.searchResultCollectionViewTopInset + Metric.navigationViewHeight + vc.view.safeAreaInsets.top)))
-        vc.searchResultCollectionView.isUserInteractionEnabled = !isLoading
-        vc.searchResultCollectionView.layoutIfNeeded()
-        
-        for cell in vc.searchResultCollectionView.visibleCells {
-          guard let cell = cell as? SearchResultCollectionCell else { continue }
-          
-          if isLoading {
-            cell.showSkeleton()
-          } else {
-            cell.hideSkeleton()
-          }
-        }
-      })
+    viewModel.output
+      .searchHistoryViewModel
+      .subscribe(with: self) { vc, viewModel in
+        vc.configureSearchHistoryVC(viewModel: viewModel)
+      }
       .disposed(by: disposeBag)
     
-    /// Disable search button when loading search results
-    viewModel.output.isLoading
-      .asDriver(onErrorDriveWith: .empty())
-      .drive(with: self, onNext: { vc, isLoading in
-        vc.searchButton.isEnabled = !isLoading
-      })
-      .disposed(by: disposeBag)
-    
-    viewModel.output.searchResultMovie
-      .asDriver(onErrorDriveWith: .empty())
-      .drive(with: self, onNext: { vc, movies in
-        if movies.isEmpty {
-          vc.searchResultCollectionView.isHidden = true
-          vc.searchResultPlaceholder.isHidden = false
-          vc.searchResultPlaceholder.text = "No search result"
-        } else {
-          vc.searchResultCollectionView.isHidden = false
-          vc.searchResultPlaceholder.isHidden = true
-          vc.view.endEditing(true)
-        }
-      })
-      .disposed(by: disposeBag)
-    
-    viewModel.output.searchResultMovie
-      .bind(to: searchResultCollectionView.rx.items(dataSource: dataSource))
-      .disposed(by: disposeBag)
-    
-    viewModel.output.presentMoviewDetailVC
-      .asDriver(onErrorDriveWith: .empty())
-      .drive(with: self, onNext: { vc, movie in
-        vc.presentMovieDetailVC(movie: movie)
-      })
-      .disposed(by: disposeBag)
-    
-    viewModel.output.showToastMessage
-      .asDriver(onErrorDriveWith: .empty())
-      .drive(with: self, onNext: { vc, message in
-        vc.view.makeToast(message, position: .center)
-      })
-      .disposed(by: disposeBag)
-  }
-  
-  private func bindCollectionViewScrollToEndEditing() {
-    searchResultCollectionView.rx.didScroll
-      .subscribe(with: self, onNext: { vc, _  in
-        vc.view.endEditing(true)
-      })
+    viewModel.output
+      .searchResultViewModel
+      .subscribe(with: self) { vc, viewModel in
+        vc.configureSearchResultVC(viewModel: viewModel)
+      }
       .disposed(by: disposeBag)
   }
   
@@ -412,17 +253,39 @@ final class SearchViewController: UIViewController {
     dismiss(animated: true)
   }
   
-  private func presentMovieDetailVC(movie: Movie) {
-    let viewModel = MovieDetailViewModel(movie: movie)
-    let vc = MovieDetailViewController(
-      viewModel: viewModel,
-      thumbnailImageViewHeroId: movie.id)
-    vc.modalPresentationStyle = .fullScreen
-    present(vc, animated: true)
-  }
-  
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
     view.endEditing(true)
+  }
+  
+  private func configureSearchHistoryVC(viewModel: SearchHistoryViewModel) {
+    let viewController = SearchHistoryViewController(viewModel: viewModel)
+    addChild(viewController)
+    containerView.addSubview(viewController.view)
+    viewController.view.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    
+    self.searchHistoryVC = viewController
+  }
+  
+  private func configureSearchResultVC(viewModel: SearchResultViewModel) {
+    let viewController = SearchResultViewController(viewModel: viewModel)
+    addChild(viewController)
+    containerView.addSubview(viewController.view)
+    viewController.view.snp.makeConstraints {
+      $0.edges.equalToSuperview()
+    }
+    self.searchResultVC = viewController
+  }
+  
+  private func showSearchHistory() {
+    searchHistoryVC?.view.isHidden = false
+    searchResultVC?.view.isHidden = true
+  }
+  
+  private func showSearchResult() {
+    searchHistoryVC?.view.isHidden = true
+    searchResultVC?.view.isHidden = false
   }
 }

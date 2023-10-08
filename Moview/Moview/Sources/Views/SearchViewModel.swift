@@ -14,39 +14,24 @@ import RxDataSources
 
 final class SearchViewModel: ViewModelType {
   
-  // MARK: - Constants
-  
-  struct SectionName {
-    static let fakeSection = "FakeSection"
-    static let searchResultSection = "SearchResultSection"
-  }
-  
-  
   // MARK: - Properties
   
   struct Input {
-    let search = PublishRelay<String>()
-    let didSelectItem = PublishRelay<IndexPath>()
-    let reachToBottom = BehaviorRelay(value: false)
+    let viewDidLoad = PublishRelay<Void>()
+    let search = PublishRelay<String?>()
   }
   
   struct Output {
-    let isLoading = PublishRelay<Bool>()
-    let searchResultMovie = BehaviorRelay<[MovieDataSection]>(value: [])
-    let presentMoviewDetailVC = PublishRelay<Movie>()
-    let showToastMessage = PublishRelay<String>()
-    let isPaging = BehaviorRelay(value: false)
-    let currentPage = BehaviorRelay(value: 0)
-    let currentSearchTerm = BehaviorRelay(value: "")
+    let searchHistoryViewModel = PublishRelay<SearchHistoryViewModel>()
+    let searchResultViewModel = PublishRelay<SearchResultViewModel>()
   }
   
   private(set) var input: Input!
   private(set) var output: Output!
   private(set) var disposeBag = DisposeBag()
-  private let ytsApiService = YTSApiService()
-  static var fakeMovieItems: [MovieDataSection] {
-    return [MovieDataSection(sectionName: SectionName.fakeSection, items: Movie.sampleItems(count: 10))]
-  }
+  
+  private var searchHistoryViewModel: SearchHistoryViewModel!
+  private var searchResultViewModel: SearchResultViewModel?
   
   
   // MARK: - Initializers
@@ -62,85 +47,23 @@ final class SearchViewModel: ViewModelType {
     self.input = Input()
     let output = Output()
     
+    input.viewDidLoad
+      .subscribe(with: self, onNext: { strongSelf, _ in
+        strongSelf.searchHistoryViewModel = SearchHistoryViewModel()
+        output.searchHistoryViewModel.accept(strongSelf.searchHistoryViewModel)
+      })
+      .disposed(by: disposeBag)
+    
     input.search
-      .subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .default))
-      .observe(on: MainScheduler.instance)
-      .map { term in
-        output.currentPage.accept(0)
-        output.currentSearchTerm.accept(term)
-        output.searchResultMovie.accept(Self.fakeMovieItems)
-        output.isLoading.accept(true)
-        return term
-      }
-      .flatMap {
-        self.ytsApiService.searchMovie(term: $0)
-          .catch { error in
-            /// ERROR state
-            if let error = error as? YTSApiService.YTSApiServiceError,
-               error == .lessThenMinimumTermLength {
-              output.showToastMessage.accept("Please enter at least two letter")
-            }
-            
-            return .just([])
-          }
-      }
-      .subscribe(onNext: { movies in
-        /// SUCCESS state
-        let resultMovieSection = MovieDataSection(sectionName: SectionName.searchResultSection, items: movies)
-        output.searchResultMovie.accept([resultMovieSection])
-        output.isLoading.accept(false)
-        output.currentPage.accept(1)
-      })
-      .disposed(by: disposeBag)
-    
-    input.didSelectItem
-      .map { output.searchResultMovie.value[0].items[$0.row] }
-      .subscribe(onNext: { movie in
-        output.presentMoviewDetailVC.accept(movie)
-      })
-      .disposed(by: disposeBag)
-    
-    input.reachToBottom
-      .map { didReachToBottom -> Bool in
-        if didReachToBottom == true &&
-            output.isPaging.value == false &&
-            output.currentPage.value != 0 {
-          return true
-        } else {
-          return false
+      .subscribe(with: self, onNext: { strongSelf, term in
+        guard let term else { return }
+        
+        if strongSelf.searchResultViewModel == nil {
+          strongSelf.searchResultViewModel = SearchResultViewModel()
+          output.searchResultViewModel.accept(strongSelf.searchResultViewModel!)
         }
-      }
-      .flatMap { isPageable -> Single<[Movie]> in
-        if isPageable {
-          output.isPaging.accept(true)
-          let nextPage = output.currentPage.value + 1
-          return self.ytsApiService.searchMovie(
-            term: output.currentSearchTerm.value,
-            page: nextPage)
-          .catch { error in
-            print(error)
-            return .just([])
-          }
-        } else {
-          return .just([])
-        }
-      }
-      .subscribe(onNext: { movies in
-        if movies.isEmpty {
-          return
-        }
-
-        // Success to load next search result page
-        let originalSection = output.searchResultMovie.value[0]
-        let nextPageMovieSection = originalSection.append(items: movies)
-        output.searchResultMovie.accept([nextPageMovieSection])
-
-        // Success to emit next search result page
-        DispatchQueue.global(qos: .default).asyncAfter(deadline: .now() + 1, execute: .init(block: {
-          let nextPage = output.currentPage.value + 1
-          output.currentPage.accept(nextPage)
-          output.isPaging.accept(false)
-        }))
+        
+        strongSelf.searchResultViewModel?.search(term)
       })
       .disposed(by: disposeBag)
     
