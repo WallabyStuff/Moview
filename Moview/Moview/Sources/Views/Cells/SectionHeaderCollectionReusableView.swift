@@ -15,7 +15,7 @@ final class SectionHeaderCollectionReusableView: UICollectionReusableView {
   
   // MARK: - Constants
   
-  static let identifier = "SectionHeaderCollectionReusableView"
+  static let identifier = String(describing: SectionHeaderCollectionReusableView.self)
   
   struct Metric {
     static let commonInset = 20.f

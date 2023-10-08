@@ -18,7 +18,7 @@ final class LargeMovieThumbnailCollectionCell: UICollectionViewCell {
   
   // MARK: - Constants
   
-  public static let identifier = "LargeMovieThumbnailCollectionCell"
+  public static let identifier = String(describing: LargeMovieThumbnailCollectionCell.self)
   
   struct Metric {
     static let estimatedSize = CGSize(width: 279, height: 420)

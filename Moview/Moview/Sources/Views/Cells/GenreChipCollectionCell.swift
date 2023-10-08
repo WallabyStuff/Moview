@@ -15,7 +15,7 @@ final class GenreChipCollectionCell: UICollectionViewCell {
   
   // MARK: - Constants
   
-  static let identifier = "GenreChipCollectionCell"
+  static let identifier = String(describing: GenreChipCollectionCell.self)
   
   struct Metric {
     static let labelVerticalInset = 4.f

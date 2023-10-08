@@ -18,7 +18,7 @@ final class MediumThumbnailMovieCollectionCell: UICollectionViewCell {
     
   // MARK: - Constants
   
-  public static let identifier = "MediumMovieThumbnailCollectionCell"
+  public static let identifier = String(describing: MediumThumbnailMovieCollectionCell.self)
   
   struct Metric {
     static let commonInset = 4.f

@@ -47,7 +47,7 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
   }
   
   
-  // MARK: - LifeCycle
+  // MARK: - Initializers
   
   override init(frame: CGRect) {
     super.init(frame: frame)
