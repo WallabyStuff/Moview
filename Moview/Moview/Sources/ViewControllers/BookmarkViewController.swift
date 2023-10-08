@@ -259,3 +259,18 @@ final class BookmarkViewController: UIViewController {
   }
 }
 
+
+// MARK: - Preview
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct BookmarkView_Preview: PreviewProvider {
+  static var previews: some View {
+    BookmarkViewController(viewModel: .init())
+      .toPreview()
+      .edgesIgnoringSafeArea(.all)
+  }
+}
+#endif
+

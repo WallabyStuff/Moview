@@ -465,3 +465,19 @@ final class MainViewController: UIViewController {
     present(vc, animated: true)
   }
 }
+
+
+// MARK: - Preview
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct MainView_Preview: PreviewProvider {
+  static var previews: some View {
+    MainViewController(viewModel: .init())
+      .toPreview()
+      .edgesIgnoringSafeArea(.all)
+  }
+}
+#endif
+

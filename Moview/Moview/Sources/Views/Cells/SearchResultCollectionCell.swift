@@ -239,3 +239,29 @@ final class SearchResultCollectionCell: UICollectionViewCell {
     }
   }
 }
+
+
+// MARK: - Preview
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct SearchResultCollectionCell_Preview: PreviewProvider {
+  static var previews: some View {
+    UIViewPreview {
+      let sampleData = Movie(id: "",
+                             title: "Spiderman",
+                             rating: 3.4,
+                             runtime: 120,
+                             genres: ["horror", "action"],
+                             description_full: "some description",
+                             medium_cover_image: "https://picsum.photos/400/1200",
+                             large_cover_image: "https://picsum.photos/400/1200")
+      let cell = SearchResultCollectionCell(frame: .zero)
+      cell.configure(movie: sampleData, thumbnailImageViewHeroId: "")
+      return cell
+    }
+  }
+}
+#endif
+

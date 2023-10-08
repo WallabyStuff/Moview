@@ -261,7 +261,7 @@ final class SearchResultViewController: UIViewController {
 // MARK: - Preview
 import SwiftUI
 
-struct SearchResultViewController_Preview: PreviewProvider {
+struct SearchResultView_Preview: PreviewProvider {
   static var previews: some View {
     let viewModel = SearchResultViewModel()
     viewModel.search("we")
