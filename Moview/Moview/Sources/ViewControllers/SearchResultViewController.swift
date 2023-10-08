@@ -132,18 +132,6 @@ final class SearchResultViewController: UIViewController {
       $0.edges.equalToSuperview()
     }
     
-//    /// Setup insets
-//    searchResultCollectionView.contentInset = .init(
-//      top: Metric.navigationViewHeight + Metric.searchResultCollectionViewTopInset,
-//      bottom: Metric.searchResultCollectionViewBottomInset)
-//    searchResultCollectionView.scrollIndicatorInsets = .init(
-//      top: Metric.navigationViewHeight + Metric.searchResultCollectionViewTopInset)
-//    
-//    /// Configure navigation bar opaque threshold
-//    navigationView.configureScrollView(
-//      searchResultCollectionView,
-//      threshold: Metric.navigationViewHeight + SafeAreaGuide.top)
-    
     // Etc
     searchResultCollectionView.delaysContentTouches = false
   }
@@ -210,7 +198,6 @@ final class SearchResultViewController: UIViewController {
     viewModel.output.isLoading
       .asDriver(onErrorDriveWith: .empty())
       .drive(with: self, onNext: { vc, isLoading in
-//        vc.searchResultCollectionView.scrollToTop(animated: false, offset: .init(x: 0, y: -(Metric.searchResultCollectionViewTopInset + Metric.navigationViewHeight + vc.view.safeAreaInsets.top)))
         vc.searchResultCollectionView.isUserInteractionEnabled = !isLoading
         vc.searchResultCollectionView.layoutIfNeeded()
         
@@ -225,15 +212,7 @@ final class SearchResultViewController: UIViewController {
         }
       })
       .disposed(by: disposeBag)
-    
-    /// Disable search button when loading search results
-//    viewModel.output.isLoading
-//      .asDriver(onErrorDriveWith: .empty())
-//      .drive(with: self, onNext: { vc, isLoading in
-//        vc.searchButton.isEnabled = !isLoading
-//      })
-//      .disposed(by: disposeBag)
-    
+
     viewModel.output.searchResultMovie
       .asDriver(onErrorDriveWith: .empty())
       .drive(with: self, onNext: { vc, movies in

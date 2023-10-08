@@ -207,23 +207,23 @@ final class MainViewController: UIViewController {
   
   // MARK: - UI
   
-  let navigationView = NavigationView().then {
+  private let navigationView = NavigationView().then {
     $0.backgroundColor = .clear
   }
-  let navigationTitleLabel = UILabel().then {
+  private let navigationTitleLabel = UILabel().then {
     $0.text = "Moview"
     $0.font = UIFont.systemFont(
       ofSize: Metric.navigationTitleFontSize,
       weight: .heavy)
   }
-  let searchButton = UIButton().then {
+  private let searchButton = UIButton().then {
     $0.hero.id = "SearchButton"
     $0.setImage(R.image.loupe(), for: .normal)
     $0.imageEdgeInsets = .init(common: Metric.searchButtonImageInset)
     $0.tintColor = R.color.iconWhite()
   }
-  var collectionView: UICollectionView!
-  var dimmingBlurView = DimmingBlurView()
+  private var collectionView: UICollectionView!
+  private var dimmingBlurView = DimmingBlurView()
 
   
   // MARK: - LifeCycle

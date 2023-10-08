@@ -51,25 +51,25 @@ final class MediumThumbnailMovieCollectionCell: UICollectionViewCell {
   
   // MARK: - UI
   
-  let thumbnailPlaceholderView = UIView().then {
+  private let thumbnailPlaceholderView = UIView().then {
     $0.backgroundColor = R.color.backgroundBlackLight()
     $0.layer.cornerRadius = Metric.thumbnailImageCornerRadius
   }
-  let thumbnailImageView = ThumbnailImageView().then {
+  private let thumbnailImageView = ThumbnailImageView().then {
     $0.contentMode = .scaleAspectFill
     $0.layer.cornerRadius = Metric.thumbnailImageCornerRadius
     $0.clipsToBounds = true
   }
-  let titleLabel = UILabel().then {
+  private let titleLabel = UILabel().then {
     $0.textColor = R.color.textWhite()
     $0.font = UIFont.systemFont(ofSize: Metric.titleLabelFontSize, weight: .bold)
     $0.numberOfLines = Metric.titleLabelMaxLineNumber
   }
-  let ratingStarImageView = UIImageView().then {
+  private let ratingStarImageView = UIImageView().then {
     $0.image = R.image.starFilled()
     $0.tintColor = R.color.iconWhite()
   }
-  let ratingLabel = UILabel().then {
+  private let ratingLabel = UILabel().then {
     $0.textColor = R.color.textWhite()
     $0.font = UIFont.systemFont(ofSize: Metric.ratingLabelFontSize, weight: .medium)
   }

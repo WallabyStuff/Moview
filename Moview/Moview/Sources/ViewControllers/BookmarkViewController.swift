@@ -86,16 +86,16 @@ final class BookmarkViewController: UIViewController {
   
   // MARK: - UI
   
-  let navigationView = NavigationView().then {
+  private let navigationView = NavigationView().then {
     $0.backgroundColor = .clear
   }
-  let navigationTitleLabel = UILabel().then {
+  private let navigationTitleLabel = UILabel().then {
     $0.text = "Bookmarks"
     $0.textColor = R.color.textWhite()
     $0.font = UIFont.systemFont(ofSize: Metric.navigationTitleFontSize, weight: .heavy)
   }
-  var collectionView: UICollectionView!
-  let placeholderLabel = UILabel().then {
+  private var collectionView: UICollectionView!
+  private let placeholderLabel = UILabel().then {
     $0.text = "There is no bookmark yet"
     $0.textColor = R.color.textGrayDarker()
   }

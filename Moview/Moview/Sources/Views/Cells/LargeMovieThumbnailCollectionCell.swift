@@ -48,7 +48,7 @@ final class LargeMovieThumbnailCollectionCell: UICollectionViewCell {
   
   // MARK: - UI
   
-  let thumbnailImageView = ThumbnailImageView(emptyStateImageSize: Metric.emptyStateImageViewSize).then {
+  private let thumbnailImageView = ThumbnailImageView(emptyStateImageSize: Metric.emptyStateImageViewSize).then {
     $0.backgroundColor = R.color.backgroundBlackLight()
     $0.contentMode = .scaleAspectFill
     $0.layer.cornerRadius = Metric.cornerRadius

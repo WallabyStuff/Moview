@@ -30,7 +30,7 @@ final class GenreChipCollectionCell: UICollectionViewCell {
   
   // MARK: - UI
   
-  let genreLabel = UILabel().then {
+  private let genreLabel = UILabel().then {
     $0.textColor = R.color.textWhite()
     $0.font = UIFont.systemFont(ofSize: Metric.defaultFontSize, weight: .medium)
   }
