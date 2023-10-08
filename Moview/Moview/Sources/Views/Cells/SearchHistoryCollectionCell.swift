@@ -59,7 +59,15 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
   }
   
   
-  // MARK: - Setup
+  // MARK: - Public
+  
+  public func configure(_ history: SearchHistory, deleteHandler: @escaping () -> Void) {
+    termLabel.text = history.term
+    self.deleteHandler = deleteHandler
+  }
+  
+  
+  // MARK: - Private
   
   private func setup() {
     setupView()
@@ -70,6 +78,7 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
     setupLeadingImageView()
     setupDeleteButton()
     setupTermLabel()
+    setupSelectedBackground()
   }
   
   private func setupLeadingImageView() {
@@ -99,6 +108,12 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
     }
   }
   
+  private func setupSelectedBackground() {
+    let selectedView = UIView()
+    selectedView.backgroundColor = R.color.backgroundBlackLighter()!
+    selectedBackgroundView = selectedView
+  }
+  
   
   // MARK: - Binding
   
@@ -113,14 +128,6 @@ final class SearchHistoryCollectionCell: UICollectionViewCell {
         strongSelf.deleteHandler?()
       })
       .disposed(by: disposeBag)
-  }
-  
-  
-  // MARK: - Public
-  
-  public func configure(_ history: SearchHistory, deleteHandler: @escaping () -> Void) {
-    termLabel.text = history.term
-    self.deleteHandler = deleteHandler
   }
 }
 
