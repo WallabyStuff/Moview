@@ -11,7 +11,7 @@ import RealmSwift
 import RxSwift
 
 
-final class BookmarkManager {
+final class BookmarkManager: RealmManager {
   
   // MARK: - Properties
   
@@ -31,20 +31,6 @@ final class BookmarkManager {
         observer(.completed)
       } catch {
         observer(.error(error))
-      }
-      
-      return Disposables.create()
-    }
-  }
-  
-  public func fetchData() -> Single<[MovieBookmark]> {
-    return Single.create { observer in
-      do {
-        let realmInstance = try Realm()
-        let bookmarks = Array(realmInstance.objects(MovieBookmark.self))
-        observer(.success(bookmarks))
-      } catch {
-        observer(.failure(error))
       }
       
       return Disposables.create()
@@ -73,41 +59,7 @@ final class BookmarkManager {
       return Disposables.create()
     }
   }
-  
-  public func deleteData(_ item: MovieBookmark) -> Completable {
-    return Completable.create { observer  in
-      do {
-        let realmInstance = try Realm()
-        try realmInstance.write {
-          realmInstance.delete(item)
-        }
-        
-        observer(.completed)
-      } catch {
-        observer(.error(error))
-      }
-      
-      return Disposables.create()
-    }
-  }
-  
-  public func deleteAll() -> Completable {
-    return Completable.create { observer  in
-      do {
-        let realmInstance = try Realm()
-        try realmInstance.write {
-          realmInstance.deleteAll()
-        }
-        
-        observer(.completed)
-      } catch {
-        observer(.error(error))
-      }
-      
-      return Disposables.create()
-    }
-  }
-  
+
   public func isBookmarked(id: String) -> Bool {
     do {
       let realmInstance = try Realm()

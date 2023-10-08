@@ -55,7 +55,7 @@ final class BookmarkViewModel: ViewModelType {
     input.viewWillAppear
       .flatMap { [weak self] () -> Single<[MovieBookmark]> in
         guard let self = self else { return .just([]) }
-        return self.bookmarkManager.fetchData()
+        return self.bookmarkManager.fetchDatas()
       }
       .subscribe(onNext: { bookmarkMovies in
         let movies = bookmarkMovies.map { $0.toMovieType() }
