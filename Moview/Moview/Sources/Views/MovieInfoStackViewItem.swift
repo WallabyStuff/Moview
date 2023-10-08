@@ -15,7 +15,7 @@ final class MovieInfoStackViewItem: UIView {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let iconSize = 28.f
     
     static let iconImageViewTopMargin = 8.f

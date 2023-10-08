@@ -12,7 +12,7 @@ final class BookmarkButton: UIButton {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let imageEdgeInsets = 4.f
     static let unBookmarkedAlpha = 0.3.f
   }

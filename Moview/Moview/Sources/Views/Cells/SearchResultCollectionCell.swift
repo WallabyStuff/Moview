@@ -21,7 +21,7 @@ final class SearchResultCollectionCell: UICollectionViewCell {
   
   static let identifier = String(describing: SearchResultCollectionCell.self)
   
-  struct Metric {
+  enum Metric {
     static let verticalInset = 12.f
     static let horizontalInset = 20.f
     

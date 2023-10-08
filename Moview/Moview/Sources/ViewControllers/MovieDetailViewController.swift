@@ -19,7 +19,7 @@ final class MovieDetailViewController: UIViewController {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let regularInset = 20.f
     static let compactInset = 12.f
     

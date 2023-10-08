@@ -21,7 +21,7 @@ final class SearchViewController: UIViewController {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let regularInset = 20.f
     
     static let navigationViewHeight = 64.f

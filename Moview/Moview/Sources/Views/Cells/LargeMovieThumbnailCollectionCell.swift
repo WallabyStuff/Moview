@@ -20,7 +20,7 @@ final class LargeMovieThumbnailCollectionCell: UICollectionViewCell {
   
   public static let identifier = String(describing: LargeMovieThumbnailCollectionCell.self)
   
-  struct Metric {
+  enum Metric {
     static let estimatedSize = CGSize(width: 279, height: 420)
     
     static let cornerRadius = 6.f
