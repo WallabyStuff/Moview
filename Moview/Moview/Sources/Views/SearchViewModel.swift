@@ -30,8 +30,8 @@ final class SearchViewModel: ViewModelType {
   private(set) var output: Output!
   private(set) var disposeBag = DisposeBag()
   
-  private var searchHistoryViewModel: SearchHistoryViewModel!
-  private var searchResultViewModel: SearchResultViewModel?
+  private var searchHistoryViewModel = SearchHistoryViewModel()
+  private var searchResultViewModel = SearchResultViewModel()
   
   
   // MARK: - Initializers
@@ -44,12 +44,11 @@ final class SearchViewModel: ViewModelType {
   // MARK: - Setups
   
   private func setupInputOutput() {
-    self.input = Input()
+    let input = Input()
     let output = Output()
     
     input.viewWillAppear
       .subscribe(with: self, onNext: { strongSelf, _ in
-        strongSelf.searchHistoryViewModel = SearchHistoryViewModel()
         output.searchHistoryViewModel.accept(strongSelf.searchHistoryViewModel)
       })
       .disposed(by: disposeBag)
@@ -57,17 +56,21 @@ final class SearchViewModel: ViewModelType {
     input.search
       .subscribe(with: self, onNext: { strongSelf, term in
         guard let term else { return }
+        output.searchResultViewModel.accept(strongSelf.searchResultViewModel)
         
-        if strongSelf.searchResultViewModel == nil {
-          strongSelf.searchResultViewModel = SearchResultViewModel()
-          output.searchResultViewModel.accept(strongSelf.searchResultViewModel!)
-        }
-        
-        strongSelf.searchResultViewModel?.search(term)
+        strongSelf.searchResultViewModel.search(term)
         strongSelf.searchHistoryViewModel.addHistory(term)
       })
       .disposed(by: disposeBag)
     
+    searchHistoryViewModel.output
+      .selectedItem
+      .subscribe(onNext: { item in
+        input.search.accept(item.term)
+      })
+      .disposed(by: disposeBag)
+    
+    self.input = input
     self.output = output
   }
 }

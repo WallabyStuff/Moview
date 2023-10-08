@@ -216,8 +216,6 @@ final class SearchViewController: UIViewController {
         return nil
       }
       
-      self?.view.endEditing(true)
-      self?.showSearchResult()
       return self?.searchTerm
     }
     .bind(to: viewModel.input.search)
@@ -242,6 +240,8 @@ final class SearchViewController: UIViewController {
     viewModel.output
       .searchResultViewModel
       .subscribe(with: self) { vc, viewModel in
+        vc.view.endEditing(true)
+        vc.showSearchResult()
         vc.configureSearchResultVC(viewModel: viewModel)
       }
       .disposed(by: disposeBag)

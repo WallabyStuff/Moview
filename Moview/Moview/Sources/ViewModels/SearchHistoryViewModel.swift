@@ -19,10 +19,12 @@ final class SearchHistoryViewModel: ViewModelType {
     let viewWillAppear = PublishRelay<Void>()
     let addHistory = PublishRelay<String>()
     let removeHistory = PublishRelay<SearchHistory>()
+    let selectItem = PublishRelay<IndexPath>()
   }
   
   struct Output {
     let searchHistories = BehaviorRelay<[SearchHistory]>(value: [])
+    let selectedItem = PublishRelay<SearchHistory>()
   }
   
   private(set) var input: Input!
@@ -95,6 +97,13 @@ final class SearchHistoryViewModel: ViewModelType {
         return historyManager.deleteData(item)
       }
       .subscribe()
+      .disposed(by: disposeBag)
+    
+    input.selectItem
+      .map { output.searchHistories.value[$0.row] }
+      .subscribe(onNext: { item in
+        output.selectedItem.accept(item)
+      })
       .disposed(by: disposeBag)
     
     self.output = output

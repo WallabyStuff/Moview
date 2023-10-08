@@ -132,6 +132,10 @@ final class SearchHistoryViewController: UIViewController {
         vc.view.endEditing(true)
       })
       .disposed(by: disposeBag)
+    
+    searchHistoryCollectionView.rx.itemSelected
+      .bind(to: viewModel.input.selectItem)
+      .disposed(by: disposeBag)
   }
   
   private func bindOutputs() {
