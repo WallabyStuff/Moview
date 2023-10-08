@@ -193,9 +193,9 @@ final class SearchViewController: UIViewController {
   }
   
   private func bindInputs() {
-    rx.viewDidLoad
+    rx.viewWillAppear
       .map { _ in }
-      .bind(to: viewModel.input.viewDidLoad)
+      .bind(to: viewModel.input.viewWillAppear)
       .disposed(by: disposeBag)
     
     backButton.rx.tap
@@ -259,6 +259,8 @@ final class SearchViewController: UIViewController {
   }
   
   private func configureSearchHistoryVC(viewModel: SearchHistoryViewModel) {
+    if searchHistoryVC != nil { return }
+    
     let viewController = SearchHistoryViewController(viewModel: viewModel)
     addChild(viewController)
     containerView.addSubview(viewController.view)
@@ -270,12 +272,15 @@ final class SearchViewController: UIViewController {
   }
   
   private func configureSearchResultVC(viewModel: SearchResultViewModel) {
+    if searchResultVC != nil { return }
+    
     let viewController = SearchResultViewController(viewModel: viewModel)
     addChild(viewController)
     containerView.addSubview(viewController.view)
     viewController.view.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+    
     self.searchResultVC = viewController
   }
   

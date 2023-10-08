@@ -17,7 +17,7 @@ final class SearchViewModel: ViewModelType {
   // MARK: - Properties
   
   struct Input {
-    let viewDidLoad = PublishRelay<Void>()
+    let viewWillAppear = PublishRelay<Void>()
     let search = PublishRelay<String?>()
   }
   
@@ -47,7 +47,7 @@ final class SearchViewModel: ViewModelType {
     self.input = Input()
     let output = Output()
     
-    input.viewDidLoad
+    input.viewWillAppear
       .subscribe(with: self, onNext: { strongSelf, _ in
         strongSelf.searchHistoryViewModel = SearchHistoryViewModel()
         output.searchHistoryViewModel.accept(strongSelf.searchHistoryViewModel)
@@ -64,6 +64,7 @@ final class SearchViewModel: ViewModelType {
         }
         
         strongSelf.searchResultViewModel?.search(term)
+        strongSelf.searchHistoryViewModel.addHistory(term)
       })
       .disposed(by: disposeBag)
     

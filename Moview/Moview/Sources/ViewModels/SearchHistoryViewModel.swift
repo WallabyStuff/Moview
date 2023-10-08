@@ -37,7 +37,14 @@ final class SearchHistoryViewModel: ViewModelType {
   }
   
   
-  // MARK: - Methods
+  // MARK: - Public
+  
+  public func addHistory(_ term: String) {
+    input.addHistory.accept(term)
+  }
+  
+  
+  // MARK: - Private
   
   private func setupInputOutput() {
     self.input = Input()
