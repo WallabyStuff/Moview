@@ -97,7 +97,7 @@ final class BookmarkViewController: UIViewController {
   }
   private var collectionView: UICollectionView!
   private let placeholderLabel = UILabel().then {
-    $0.text = "There is no bookmark yet"
+    $0.text = "Empty bookmark"
     $0.textColor = R.color.textGrayDarker()
   }
   
