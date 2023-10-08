@@ -415,3 +415,27 @@ final class MovieDetailViewController: UIViewController {
     })
   }
 }
+
+
+// MARK: - Preview
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct MovieDetailView_Preview: PreviewProvider {
+  static var previews: some View {
+    let sampleData = Movie(id: "",
+                           title: "Spiderman",
+                           rating: 3.4,
+                           runtime: 120,
+                           genres: ["horror", "action"],
+                           description_full: "some description",
+                           medium_cover_image: "https://picsum.photos/400/1200",
+                           large_cover_image: "https://picsum.photos/400/1200")
+    MovieDetailViewController(viewModel: .init(movie: sampleData), thumbnailImageViewHeroId: "")
+      .toPreview()
+      .edgesIgnoringSafeArea(.all)
+  }
+}
+#endif
+

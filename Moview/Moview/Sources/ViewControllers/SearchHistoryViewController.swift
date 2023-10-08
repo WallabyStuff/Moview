@@ -166,7 +166,7 @@ final class SearchHistoryViewController: UIViewController {
 // MARK: - Preview
 
 import SwiftUI
-struct SearchHistoryViewController_Preview: PreviewProvider {
+struct SearchHistoryView_Preview: PreviewProvider {
   static var previews: some View {
     SearchHistoryViewController(viewModel: .init()).toPreview()
       .edgesIgnoringSafeArea(.all)

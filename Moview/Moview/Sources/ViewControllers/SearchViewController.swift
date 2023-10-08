@@ -296,3 +296,19 @@ final class SearchViewController: UIViewController {
     searchResultVC?.view.isHidden = false
   }
 }
+
+
+// MARK: - Preview
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct SearchView_Preview: PreviewProvider {
+  static var previews: some View {
+    SearchViewController(viewModel: .init())
+      .toPreview()
+      .edgesIgnoringSafeArea(.all)
+  }
+}
+#endif
+
