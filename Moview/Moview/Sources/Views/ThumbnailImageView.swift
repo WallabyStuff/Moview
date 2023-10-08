@@ -16,7 +16,7 @@ final class ThumbnailImageView: UIImageView {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let defaultEmptyStateImageSize = 28.f
   }
   

@@ -19,7 +19,7 @@ final class BookmarkViewController: UIViewController {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let regularInset = 20.f
     static let compactInset = 12.f
     
@@ -32,6 +32,7 @@ final class BookmarkViewController: UIViewController {
     static let collectionViewTopInset = 20.f
     static let collectionViewBottomInset = 100.f
   }
+  
   
   // MARK: - Properties
   

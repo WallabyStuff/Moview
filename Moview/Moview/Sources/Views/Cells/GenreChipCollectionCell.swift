@@ -17,7 +17,7 @@ final class GenreChipCollectionCell: UICollectionViewCell {
   
   static let identifier = String(describing: GenreChipCollectionCell.self)
   
-  struct Metric {
+  enum Metric {
     static let labelVerticalInset = 4.f
     static let labelHorizontalInset = 12.f
     

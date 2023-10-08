@@ -12,7 +12,7 @@ final class GenreCollectionFlowLayout: UICollectionViewFlowLayout {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let itemSpacing = 8.f
   }
   

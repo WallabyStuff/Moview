@@ -17,7 +17,7 @@ final class SectionHeaderCollectionReusableView: UICollectionReusableView {
   
   static let identifier = String(describing: SectionHeaderCollectionReusableView.self)
   
-  struct Metric {
+  enum Metric {
     static let commonInset = 20.f
     static let titleLabelFontSize = 17.f
   }

@@ -19,7 +19,7 @@ final class NavigationView: UIView {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let separatorWidth = 1.f
   }
   

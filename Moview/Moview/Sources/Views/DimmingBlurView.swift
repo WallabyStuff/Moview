@@ -16,7 +16,7 @@ final class DimmingBlurView: UIView {
   
   // MARK: - Constants
   
-  struct Metric {
+  enum Metric {
     static let gradientLayerHeight = 80.f
   }
   

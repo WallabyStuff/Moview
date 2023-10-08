@@ -20,7 +20,7 @@ final class MediumThumbnailMovieCollectionCell: UICollectionViewCell {
   
   public static let identifier = String(describing: MediumThumbnailMovieCollectionCell.self)
   
-  struct Metric {
+  enum Metric {
     static let commonInset = 4.f
     
     static let thumbnailImageCornerRadius = 6.f
